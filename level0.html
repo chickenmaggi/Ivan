@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Level 0: Welcome 🎂</title>
+<style>
+body {
+  margin:0;
+  font-family: 'Courier New', monospace;
+  background-color: #000;
+  color: #fff;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  height:100vh;
+  text-align:center;
+  overflow:hidden;
+}
+h1 { font-size:1.6em; color:#fff; margin-bottom:0.2em; }
+p { font-size:0.85em; color:#A7D8FF; margin-bottom:2em; }
+button {
+  padding:0.6em 1.5em; font-size:0.85em; font-family: 'Courier New', monospace;
+  border:2px solid #A7D8FF; border-radius:6px; background:#000; color:#A7D8FF; cursor:pointer; transition:0.2s;
+}
+button:hover { background:#A7D8FF; color:#000; transform:scale(1.1); }
+.pixel { position:absolute; width:32px; height:32px; background-size:contain; background-repeat:no-repeat; }
+.floating-text { position:absolute; font-size:0.7em; font-family:'Courier New', monospace; color:#A7D8FF; user-select:none; pointer-events:none; }
+</style>
+</head>
+<body>
+<h1>Happy Birthday, Goldfish! 🎂</h1>
+<p>Welcome to your birthday quest 😏 Only the brave & cute survive!</p>
+<button onclick="window.location='level1.html'">Start Game ▶</button>
+
+<!-- Pixel animals embedded as base64 -->
+<div class="pixel" id="cat" style="background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABmElEQVRYR+3Xv0tUQRjH8d9MggtRJFQeQlsoqK2lJSWVhZCtUB+gnYa2trYJfIUnRBbrRDa0kUUhNIFVZCU1G/7e7vMzszD4Zs7u7vTO+/w7P58T7RkEdAE1yXb3iZyYwJu5we2wFZHgkGThPrmQDGOMRZbFF6lG+Y4QpQz8Nn8DdkH7JAbjMPuD2kHkRAoME5yAPyBXAN+HuBjUG9Ax2B/0F3AvkKcO6MTZj6BV8E3f6ReYEfcXyBP9CtmAX8g1rCS30NTsgD1goDvmTzwB6nInqJd72kZgK+gnw2tFLCpoFzS4Zbxkq0rPOkgDNKkDNJkW4S9gu4EZ7MIi+hDHXz2bUHfP/AWbYh/8DzrkgGuIs4H8Yok8sAyI0ZqJ3kZp1k92RZyCHlGT9Oao+YI+E0w/n9dkCey+Rx70E2l+uhP2lSvkWfukrx91p82l/m4EbnH9Wl2wT9t7wLfhf/A+7ff6oZv1v8AAAAASUVORK5CYII='); bottom:50px; left:50px;"></div>
+<div class="pixel" id="dog" style="background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABJUlEQVRYR+2VQQ6DMAxEj8sDcvk8Vck4kpT9gQF5CUO6SQsUyM2bEEQv5zD7jnuXIZjO+xZ6A6wBoQTWAuowPk0ArKQHb5Mb3C4V0zF77FwlSgqM2lAqSBrH3mAP1UO7AKdRWwe0A8SvT8b4sD4kHm6A0axDeZV0brAtd0Awf8DO2gTXigZsYEGn7+vXX0ZXQ7d9Ax7khgEOlW+vNxO+AQwg+PsmYHZHtdExsNdb33sTFLwD35cWg7EQO4/3Af3QyH4ZWhu0F+h8h+8fQW7i3YAKwM7pJhtxYztwAAAABJRU5ErkJggg=='); bottom:100px; left:200px;"></div>
+<div class="pixel" id="bunny" style="background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABMklEQVRYR+2VQQrDIAxEHxNkNpkvLkNXYhQhJv0jZk2o+wxRJ3/77gV0bW0xDy4MYQGc04F0JvE7jBGgHgAWJ+4ACwA+MYgGUhsc1AZ7BEUgNqSh3d+IrODzLCAkz3gEsJ2FwgtjqXb0AA6dGqL4FXEBxqPcQE0iOjx9fVj+0yI0YRF1yDx9VxqPpaXH6BmHkH9mFYx4K7dJpJ5+0BJ+4n7F3HKh3M0FZz4Hru/yGMP2jfT+qJ1i4gAAAABJRU5ErkJggg=='); bottom:150px; left:400px;"></div>
+
+<!-- Floating cute texts -->
+<div class="floating-text" id="text1">hey cutie 😏</div>
+<div class="floating-text" id="text2">level up 💌</div>
+<div class="floating-text" id="text3">you’re awesome 🥰</div>
+<div class="floating-text" id="text4">💖✨ just for you ✨💖</div>
+
+<script>
+// Pixel cat movement
+const cat = document.getElementById('cat');
+let catPos = 50, catDir = 1;
+
+// Floating texts
+const texts = [
+  document.getElementById('text1'),
+  document.getElementById('text2'),
+  document.getElementById('text3'),
+  document.getElementById('text4')
+];
+
+const textData = texts.map(t=>{
+  return {
+    el: t,
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    dx: (Math.random()*1.5+0.2)*(Math.random()<0.5?1:-1),
+    dy: (Math.random()*1.5+0.2)*(Math.random()<0.5?1:-1)
+  }
+});
+
+function animate() {
+  catPos += 1*catDir;
+  if(catPos > window.innerWidth-32 || catPos < 0) catDir*=-1;
+  cat.style.left = catPos+'px';
+
+  textData.forEach(t=>{
+    t.x += t.dx;
+    t.y += t.dy;
+    if(t.x < 0 || t.x > window.innerWidth-50) t.dx*=-1;
+    if(t.y < 0 || t.y > window.innerHeight-20) t.dy*=-1;
+    t.el.style.left = t.x+'px';
+    t.el.style.top = t.y+'px';
+  });
+
+  requestAnimationFrame(animate);
+}
+
+animate();
+window.addEventListener('resize', ()=>{
+  textData.forEach(t=>{
+    t.x = Math.random() * window.innerWidth;
+    t.y = Math.random() * window.innerHeight;
+  });
+});
+</script>
+</body>
+</html>
